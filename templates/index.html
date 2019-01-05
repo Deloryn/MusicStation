@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Music Station</title>
+</head>
+<body>
+    <h3>Choose song</h3>
+    <form action="{{ url_for('set_song') }}" method="post">
+        <select name="track">
+          {% for song in songs %}
+              <option value="{{ song.path }}">{{ song.name }}</option>
+          {% endfor %}
+        </select>
+        <input type="submit" value="OK"/>
+    </form>
+
+    <hr>
+
+    <h3>Top songs</h3>
+    <table rules="all">
+        <tr><td>Place</td><td>Name</td><td>Times</td></tr>
+        {% for song in songs %}
+            <tr><td>{{ loop.index }}</td><td>{{ song.name }}</td><td>{{ song.times_played }}</td></tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
