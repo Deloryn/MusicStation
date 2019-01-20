@@ -1,8 +1,7 @@
 __author__ = 'Krzysztof Michalak'
 
 from sqlalchemy import create_engine
-from app import db
-from models import Song
+from app import db, Song
 
 
 def db_start():

@@ -5,6 +5,9 @@ from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 
+from sqlalchemy import Column
+from sqlalchemy.types import Integer
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///music_station.db'
@@ -21,7 +24,14 @@ bcrypt = Bcrypt()
 app.static_path = path.join(path.abspath(__file__), 'static')
 
 
-from models import Song  # Don't move it to the top!
+class Song(db.Model):
+    __tablename__ = 'songs'
+    path = db.Column(db.String(100), primary_key=True)
+    name = db.Column(db.String(60), nullable=False)
+    times_played = Column(Integer, default=0)
+
+    def get(self):
+        return str(self)
 
 
 @app.route('/')
